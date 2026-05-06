@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+{% block title %}Privacy Policy - BookStore{% endblock %}
+
+{% block content %}
+<div class="container mt-5 pt-5 mb-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-9">
+
+            <div class="card shadow-lg rounded-4 p-4">
+
+                <h2 class="text-center mb-4">🔒 Privacy Policy</h2>
+                <p class="text-muted text-center mb-4">
+                    Your privacy is important to us. This privacy policy explains how BookStore collects, uses, and protects your personal information.
+                </p>
+
+                <div class="privacy-section mb-4">
+                    <h5><i class="fa-solid fa-user-shield text-success me-2"></i>Information Collection</h5>
+                    <p>
+                        We collect personal information such as your name, email, phone number, and payment details when you make a purchase or register on our website.
+                    </p>
+                </div>
+
+                <div class="privacy-section mb-4">
+                    <h5><i class="fa-solid fa-file-invoice-dollar text-success me-2"></i>Use of Information</h5>
+                    <p>
+                        Your information is used to process orders, improve our services, send updates, and provide a personalized shopping experience.
+                    </p>
+                </div>
+
+                <div class="privacy-section mb-4">
+                    <h5><i class="fa-solid fa-lock text-success me-2"></i>Data Security</h5>
+                    <p>
+                        We implement industry-standard security measures to protect your personal data from unauthorized access, alteration, or disclosure.
+                    </p>
+                </div>
+
+                <div class="privacy-section mb-4">
+                    <h5><i class="fa-solid fa-share-nodes text-success me-2"></i>Third-Party Sharing</h5>
+                    <p>
+                        We do not sell your personal information. We may share data with trusted service providers solely to process orders or provide services on your behalf.
+                    </p>
+                </div>
+
+                <div class="privacy-section mb-4">
+                    <h5><i class="fa-solid fa-gavel text-success me-2"></i>Policy Updates</h5>
+                    <p>
+                        BookStore may update this privacy policy from time to time. Changes will be posted on this page and take effect immediately.
+                    </p>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<style>
+.card h5{
+    font-weight:600;
+    margin-bottom:10px;
+}
+.card p{
+    font-size:15px;
+    line-height:1.6;
+    color:#555;
+}
+.privacy-section i{
+    font-size:16px;
+}
+.card{
+    background:#fff;
+}
+</style>
+{% endblock %}

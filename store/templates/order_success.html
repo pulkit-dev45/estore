@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% block title %}Order Success - BookStore{% endblock %}
+
+{% block content %}
+<div class="container mt-5 mb-5">
+<div class="card shadow-lg rounded-4 p-5 text-center">
+
+<!-- SUCCESS ICON -->
+<div class="mb-4">
+<i class="fa-solid fa-circle-check fa-5x text-success"></i>
+</div>
+
+<h2 class="text-success fw-bold">Order Placed Successfully!</h2>
+<p class="mt-2 fs-5">Order ID: <strong>#{{ order.id }}</strong></p>
+
+<hr class="my-4">
+
+<h5 class="fw-bold mb-3">Order Details</h5>
+
+<div class="mb-3">
+{% for item in items %}
+<div class="d-flex justify-content-between align-items-center p-2 rounded shadow-sm mb-2" style="background:#f8f9fa;">
+<div class="d-flex align-items-center">
+<img src="{{ item.book.image.url }}" alt="{{ item.book.title }}" class="img-fluid rounded me-2" style="height:50px; width:40px; object-fit:cover; box-shadow:0 3px 10px rgba(0,0,0,.1);">
+<span class="fw-semibold">{{ item.book.title }} (x{{ item.quantity }})</span>
+</div>
+<span class="fw-bold text-success">₹ {{ item.subtotal }}</span>
+</div>
+{% endfor %}
+</div>
+
+<hr class="my-4">
+
+<h4 class="fw-bold text-end">Total Paid: <span class="text-success">₹ {{ order.total_amount }}</span></h4>
+
+<div class="mt-4 d-flex justify-content-center flex-wrap gap-3">
+<a href="{% url 'shop' %}" class="btn btn-dark btn-lg shadow-sm">
+<i class="fa-solid fa-arrow-left me-2"></i>Continue Shopping
+</a>
+<a href="{% url 'my_orders' %}" class="btn btn-outline-success btn-lg shadow-sm">
+<i class="fa-solid fa-box me-2"></i>My Orders
+</a>
+</div>
+
+</div>
+</div>
+
+<style>
+.card{
+    transition: all .3s ease;
+}
+.card:hover{
+    transform: translateY(-5px);
+    box-shadow:0 30px 60px rgba(0,0,0,.15);
+}
+.btn{
+    transition: all .3s ease;
+    border-radius:10px;
+}
+.btn:hover{
+    transform: translateY(-3px);
+    box-shadow:0 10px 25px rgba(0,0,0,.2);
+}
+</style>
+{% endblock %}

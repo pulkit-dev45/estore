@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block title %}My Orders - BookStore{% endblock %}
+
+{% block content %}
+<div class="container mt-5 mb-5">
+
+<h2 class="mb-4 text-center fw-bold">📦 My Orders</h2>
+
+{% if orders %}
+<div class="row g-4">
+{% for order in orders %}
+<div class="col-md-6">
+<div class="card shadow rounded-4 p-4 hover-card">
+<h5 class="fw-bold mb-2">Order #{{ order.id }}</h5>
+<p class="text-muted mb-3">
+<i class="fa-solid fa-calendar-days me-2"></i>{{ order.created_at }} | Total: ₹ {{ order.total_amount }}
+</p>
+<a href="{% url 'order_success' order.id %}" class="btn btn-outline-dark btn-sm shadow-sm">
+<i class="fa-solid fa-eye me-1"></i> View Details
+</a>
+</div>
+</div>
+{% endfor %}
+</div>
+{% else %}
+<div class="text-center mt-5">
+<i class="fa-solid fa-box-open fa-3x text-muted mb-3"></i>
+<p class="fs-5 text-muted">No orders found.</p>
+<a href="{% url 'shop' %}" class="btn btn-success shadow-sm">
+<i class="fa-solid fa-cart-shopping me-1"></i> Start Shopping
+</a>
+</div>
+{% endif %}
+
+</div>
+
+<style>
+.hover-card{
+    transition: all .3s ease;
+}
+.hover-card:hover{
+    transform: translateY(-5px);
+    box-shadow:0 25px 50px rgba(0,0,0,.12);
+}
+.btn{
+    transition: all .3s ease;
+    border-radius:8px;
+}
+.btn:hover{
+    transform: translateY(-2px);
+    box-shadow:0 8px 20px rgba(0,0,0,.15);
+}
+</style>
+{% endblock %}

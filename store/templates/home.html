@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>BookStore</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+
+<style>
+/* PREMIUM BOOK CARD */
+.book-card{
+    border:none;
+    border-radius:16px;
+    overflow:hidden;
+    background:#fff;
+    transition:all .35s ease;
+    box-shadow:0 15px 35px rgba(0,0,0,.08);
+}
+.book-card:hover{
+    transform:translateY(-10px);
+    box-shadow:0 30px 60px rgba(0,0,0,.18);
+}
+
+.book-card img{
+    height:300px;
+    width:100%;
+    object-fit:cover;
+}
+
+.book-card .card-body{
+    padding:22px;
+    text-align:left;
+}
+
+.book-title{
+    font-size:18px;
+    font-weight:700;
+    color:#111;
+    line-height:1.3;
+}
+
+.book-author{
+    font-size:14px;
+    color:#6c757d;
+    margin-bottom:8px;
+}
+
+.book-desc{
+    font-size:14px;
+    color:#444;
+    line-height:1.6;
+    height:45px;
+    overflow:hidden;
+}
+
+.book-footer{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-top:14px;
+}
+
+.book-price{
+    font-size:18px;
+    font-weight:700;
+    color:#198754;
+}
+
+
+body{
+    font-family: 'Segoe UI', sans-serif;
+    background:#f4f6f9;
+}
+
+/* NAVBAR */
+.navbar{
+    background:#0b0e1a;
+}
+.navbar-brand{
+    font-weight:700;
+    font-size:24px;
+}
+.nav-link{
+    color:#ddd !important;
+}
+.nav-link:hover{
+    color:#ffc107 !important;
+}
+
+/* HERO */
+.hero{
+    background:linear-gradient(rgba(0,0,0,.6),rgba(0,0,0,.6)),
+    url('https://images.unsplash.com/photo-1524995997946-a1c2e315a42f') center/cover;
+    color:#fff;
+    padding:100px 20px;
+    text-align:center;
+}
+.hero h1{
+    font-size:48px;
+    font-weight:700;
+}
+.hero p{
+    font-size:18px;
+    opacity:.9;
+}
+
+/* CARD */
+.book-card{
+    border:none;
+    border-radius:12px;
+    overflow:hidden;
+    transition:.3s;
+    box-shadow:0 10px 25px rgba(0,0,0,.08);
+}
+.book-card:hover{
+    transform:translateY(-8px);
+    box-shadow:0 20px 40px rgba(0,0,0,.15);
+}
+.book-card img{
+    height:280px;
+    object-fit:cover;
+}
+.book-card .card-body{
+    text-align:center;
+}
+.price{
+    font-weight:600;
+    color:#198754;
+}
+
+
+/* FOOTER */
+footer{
+    background:#12131f;
+    color:#ccc;
+    padding:30px 0;
+    margin-top:50px;
+    font-size:14px;
+}
+
+footer a{
+    color:#ffc107;
+    text-decoration:none;
+}
+footer a:hover{
+    text-decoration:underline;
+}
+footer .social-icons a{
+    margin: 0 5px;
+    color:#ffc107;
+    transition:.3s;
+}
+footer .social-icons a:hover{
+    transform: scale(1.2);
+}
+</style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+<div class="container">
+<a class="navbar-brand" href="/">📚 BookStore</a>
+
+<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav">
+<span class="navbar-toggler-icon"></span>
+</button>
+
+<div class="collapse navbar-collapse" id="nav">
+<ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+<li class="nav-item">
+<a class="nav-link" href="/">Home</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" href="/shop/">Shop</a>
+</li>
+
+{% if user.is_authenticated %}
+<li class="nav-item">
+<a class="nav-link" href="{% url 'my_orders' %}">My Orders</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" href="{% url 'logout' %}">Logout</a>
+</li>
+{% else %}
+<li class="nav-item">
+<a class="nav-link" href="{% url 'login' %}">Login</a>
+</li>
+{% endif %}
+</ul>
+</div>
+</div>
+</nav>
+
+<!-- HERO SECTION -->
+<section class="hero">
+<h1>Premium Online Book Store</h1>
+<p>Read • Learn • Grow with the best collection</p>
+<a href="/shop/" class="btn btn-warning btn-lg mt-3">
+<i class="fa-solid fa-cart-shopping"></i> Shop Now
+</a>
+</section>
+
+<!-- BOOKS -->
+<div class="container mt-5 pt-4">
+<div class="row g-4">
+
+{% for book in books %}
+<div class="col-xl-3 col-lg-3 col-md-6">
+<div class="card book-card h-100">
+
+<img src="{{ book.image.url }}" alt="{{ book.title }}">
+
+<div class="card-body">
+
+<h5 class="book-title">{{ book.title }}</h5>
+<p class="book-author">by {{ book.author }}</p>
+
+<p class="book-desc">
+{{ book.description|truncatewords:18 }}
+</p>
+
+<div class="book-footer">
+<span class="book-price">₹ {{ book.price }}</span>
+
+<a href="{% url 'book_detail' book.id %}" class="btn btn-sm btn-outline-dark">
+Read More
+</a>
+</div>
+
+</div>
+</div>
+</div>
+{% endfor %}
+
+</div>
+</div>
+<footer class="text-center">
+<div class="container">
+<p>&copy; {{ now.year }} 📚 BookStore. All Rights Reserved.</p>
+<p>
+<a href="{% url "privacy" %}">Privacy Policy</a> | 
+<a href="{% url "term" %}">Terms & Conditions</a> | 
+<a href="{% url "contact" %}">Contact Us</a>
+</p>
+<div class="social-icons">
+<a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+<a href="#"><i class="fa-brands fa-twitter"></i></a>
+<a href="#"><i class="fa-brands fa-instagram"></i></a>
+<a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+</div>
+</div>
+</footer>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

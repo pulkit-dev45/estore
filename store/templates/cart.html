@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+
+{% block title %}Your Cart - BookStore{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+
+<h2 class="mb-4 text-center fw-bold">🛒 Your Cart</h2>
+
+<div class="table-responsive shadow-lg rounded">
+<table class="table align-middle text-center mb-0 bg-white rounded">
+<thead style="background: linear-gradient(90deg, #0d6efd, #198754); color:#fff;">
+<tr>
+<th>Book</th>
+<th>Price</th>
+<th>Quantity</th>
+<th>Subtotal</th>
+<th>Action</th>
+</tr>
+</thead>
+
+<tbody>
+{% for book in books %}
+<tr class="align-middle shadow-sm mb-2 rounded">
+<td class="text-start">
+<div class="d-flex align-items-center">
+<img src="{{ book.image.url }}" alt="{{ book.title }}" class="img-fluid rounded me-3" style="height:70px; width:50px; object-fit:cover; box-shadow:0 5px 15px rgba(0,0,0,.1);">
+<div class="fw-bold">{{ book.title }}</div>
+</div>
+</td>
+
+<td>₹ {{ book.price }}</td>
+
+<td>
+<div class="d-flex justify-content-center align-items-center">
+<a href="{% url 'decrease' book.id %}" class="btn btn-sm btn-outline-danger me-2 shadow-sm"><i class="fa-solid fa-minus"></i></a>
+<span class="badge bg-primary mx-2 fw-bold" style="font-size:1rem;">{{ book.qty }}</span>
+<a href="{% url 'increase' book.id %}" class="btn btn-sm btn-outline-success ms-2 shadow-sm"><i class="fa-solid fa-plus"></i></a>
+</div>
+</td>
+
+<td class="fw-bold text-success">₹ {{ book.subtotal }}</td>
+
+<td>
+<a href="{% url 'remove' book.id %}" class="btn btn-sm btn-danger shadow-sm">
+<i class="fa-solid fa-trash me-1"></i> Remove
+</a>
+</td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+</div>
+
+<!-- TOTAL & CHECKOUT -->
+<div class="mt-4 d-flex justify-content-end align-items-center flex-wrap">
+<h4 class="me-4 mb-2">Total: <span class="text-success fw-bold">₹ {{ total }}</span></h4>
+<a href="{% url 'checkout' %}" class="btn btn-success btn-lg shadow-lg mb-2 animate__animated animate__pulse animate__infinite">
+<i class="fa-solid fa-cart-shopping me-2"></i>Proceed to Checkout
+</a>
+</div>
+
+</div>
+
+<!-- PREMIUM EFFECTS CSS -->
+<style>
+.table th, .table td{
+    vertical-align: middle !important;
+}
+.table tbody tr{
+    transition: all .3s ease;
+    border-radius:12px;
+}
+.table tbody tr:hover{
+    background: #f1f5f9;
+    transform: translateY(-3px);
+    box-shadow:0 8px 25px rgba(0,0,0,.12);
+}
+.btn{
+    transition: all .3s ease;
+    border-radius:8px;
+}
+.btn:hover{
+    transform: translateY(-2px);
+    box-shadow:0 6px 18px rgba(0,0,0,.15);
+}
+.badge{
+    font-size:1rem;
+    transition:.3s;
+}
+.badge:hover{
+    transform:scale(1.1);
+}
+</style>
+
+<!-- OPTIONAL ANIMATE.CSS CDN FOR SUBTLE PULSE -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+{% endblock %}

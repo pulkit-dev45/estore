@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ book.title }} - BookStore{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+<div class="book-detail-card row align-items-center g-4">
+
+<!-- BOOK IMAGE -->
+<div class="col-md-5 text-center mb-4 mb-md-0">
+<img src="{{ book.image.url }}" class="img-fluid book-detail-img" alt="{{ book.title }}">
+</div>
+
+<!-- BOOK INFO -->
+<div class="col-md-7">
+<h2 class="book-detail-title">{{ book.title }}</h2>
+
+<p class="book-detail-author">
+<i class="fa-solid fa-user me-2"></i>by {{ book.author }}
+</p>
+
+<!-- DESCRIPTION BOX -->
+<div class="book-detail-desc p-3 mb-3" style="background:#f8f9fa; border-radius:12px; max-height:180px; overflow-y:auto;">
+<i class="fa-solid fa-book-open me-2"></i>{{ book.description }}
+</div>
+
+<!-- PRICE & BADGES -->
+<div class="d-flex align-items-center mb-4">
+<h4 class="book-price mb-0 me-3">
+<i class="fa-solid fa-indian-rupee-sign me-1"></i>{{ book.price }}
+</h4>
+<span class="badge bg-warning text-dark me-2"><i class="fa-solid fa-star me-1"></i> Bestseller</span>
+<span class="badge bg-info text-dark"><i class="fa-solid fa-tags me-1"></i>New</span>
+</div>
+
+<!-- ADD TO CART BUTTON -->
+<a href="{% url 'add_to_cart' book.id %}" class="btn btn-success btn-buy btn-lg shadow-sm">
+<i class="fa-solid fa-cart-plus me-2"></i>Add to Cart
+</a>
+</div>
+</div>
+</div>
+
+<style>
+.book-detail-card{
+    background:#fff;
+    border-radius:20px;
+    box-shadow:0 25px 50px rgba(0,0,0,.1);
+    padding:30px;
+    margin-top:50px;
+    transition:all .3s ease;
+}
+.book-detail-card:hover{
+    transform:translateY(-5px);
+    box-shadow:0 35px 70px rgba(0,0,0,.15);
+}
+.book-detail-img{
+    border-radius:16px;
+    width:100%;
+    height:350px; /* Fixed height for all images */
+    object-fit:cover; /* Maintain aspect ratio, crop if needed */
+    box-shadow:0 15px 35px rgba(0,0,0,.1);
+}
+.book-detail-title{
+    font-size:36px;
+    font-weight:800;
+    color:#111;
+    margin-bottom:10px;
+}
+.book-detail-author{
+    font-size:18px;
+    color:#6c757d;
+    margin-bottom:20px;
+}
+.book-detail-desc{
+    font-size:16px;
+    color:#444;
+    line-height:1.6;
+    border-left:4px solid #198754;
+}
+.book-price{
+    font-size:30px;
+    font-weight:700;
+    color:#198754;
+}
+.btn-buy{
+    padding:12px 30px;
+    font-size:17px;
+    border-radius:10px;
+    transition:.3s;
+}
+.btn-buy:hover{
+    transform:translateY(-3px);
+    box-shadow:0 8px 20px rgba(0,0,0,.2);
+}
+</style>
+{% endblock %}
